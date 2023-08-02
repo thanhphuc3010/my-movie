@@ -1,7 +1,6 @@
 package com.phucpt.mymovie.codebase
 
 import android.os.Bundle
-import android.os.PersistableBundle
 import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 
@@ -10,8 +9,8 @@ import androidx.appcompat.app.AppCompatActivity
  */
 
 abstract class BaseActivity : AppCompatActivity(), BaseView {
-    override fun onCreate(savedInstanceState: Bundle?, persistentState: PersistableBundle?) {
-        super.onCreate(savedInstanceState, persistentState)
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
         Log.d(javaClass.simpleName, "onCreate()...")
 
         initializeComponents()
@@ -33,6 +32,16 @@ abstract class BaseActivity : AppCompatActivity(), BaseView {
     override fun onPause() {
         super.onPause()
         Log.d(javaClass.simpleName, "onPause()...")
+    }
+
+    override fun onStop() {
+        super.onStop()
+        Log.d(javaClass.simpleName, "onStop()...")
+    }
+
+    override fun onRestart() {
+        super.onRestart()
+        Log.d(javaClass.simpleName, "onRestart()...")
     }
 
     override fun onDestroy() {
