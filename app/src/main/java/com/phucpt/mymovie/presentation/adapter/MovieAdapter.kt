@@ -6,8 +6,9 @@ import android.view.ViewGroup
 import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
 import com.bumptech.glide.Glide
+import com.bumptech.glide.load.engine.DiskCacheStrategy
+import com.phucpt.core.domain.model.Movie
 import com.phucpt.mymovie.codebase.BaseAdapter
-import com.phucpt.mymovie.database.entity.MovieEntity
 import com.phucpt.mymovie.databinding.ItemMovieBinding
 import javax.inject.Inject
 
@@ -16,8 +17,8 @@ import javax.inject.Inject
  */
 
 class MovieAdapter @Inject constructor() :
-    PagingDataAdapter<MovieEntity, MovieAdapter.BaseViewHolder>(MOVIE_COMPARATOR) {
-    private lateinit var onItemClicked: (MovieEntity) -> Unit
+    PagingDataAdapter<Movie, MovieAdapter.BaseViewHolder>(MOVIE_COMPARATOR) {
+    private lateinit var onItemClicked: (Movie) -> Unit
     override fun onBindViewHolder(holder: BaseViewHolder, position: Int) {
         holder.bindViews(position)
     }
@@ -28,7 +29,7 @@ class MovieAdapter @Inject constructor() :
         return BaseViewHolder(binding)
     }
 
-    fun setOnItemClickListener(listener: (MovieEntity) -> Unit) {
+    fun setOnItemClickListener(listener: (Movie) -> Unit) {
         this.onItemClicked = listener
     }
 
@@ -44,17 +45,23 @@ class MovieAdapter @Inject constructor() :
             binding.txtTitle.text = movie.title
             Glide.with(binding.root.context)
                 .load(Uri.parse("https://image.tmdb.org/t/p/w500${movie.posterPath}"))
+                .diskCacheStrategy(DiskCacheStrategy.ALL)
                 .into(binding.imgPoster)
         }
     }
 
     companion object {
-        private val MOVIE_COMPARATOR = object : DiffUtil.ItemCallback<MovieEntity>() {
-            override fun areItemsTheSame(oldItem: MovieEntity, newItem: MovieEntity) =
-                oldItem.id == newItem.id
+        private val MOVIE_COMPARATOR =
+            object : DiffUtil.ItemCallback<Movie>() {
+                override fun areItemsTheSame(
+                    oldItem: Movie,
+                    newItem: Movie
+                ) = oldItem.id == newItem.id
 
-            override fun areContentsTheSame(oldItem: MovieEntity, newItem: MovieEntity) =
-                oldItem == newItem
-        }
+                override fun areContentsTheSame(
+                    oldItem: Movie,
+                    newItem: Movie
+                ) = oldItem == newItem
+            }
     }
 }

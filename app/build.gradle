@@ -47,7 +47,8 @@ android {
 }
 
 dependencies {
-    implementation(project(":core-data"))
+    implementation project(":core-domain")
+    implementation project(":core-data")
 
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)
@@ -90,6 +91,12 @@ dependencies {
     implementation libs.androidx.room.paging
     implementation libs.androidx.room.ktx
     kapt libs.androidx.room.compiler
+
+    api('io.jsonwebtoken:jjwt-api:0.12.3')
+    runtimeOnly('io.jsonwebtoken:jjwt-impl:0.12.3')
+    runtimeOnly('io.jsonwebtoken:jjwt-orgjson:0.12.3') {
+        exclude(group: 'org.json', module: 'json') //provided by Android natively
+    }
 
     testImplementation 'junit:junit:4.13.2'
     androidTestImplementation 'androidx.test.ext:junit:1.1.5'

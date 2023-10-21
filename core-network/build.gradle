@@ -14,6 +14,12 @@ android {
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         consumerProguardFiles "consumer-rules.pro"
+
+        Properties properties = new Properties()
+        properties.load(project.rootProject.file("local.properties").newDataInputStream())
+
+        buildConfigField "String", "BASE_URL", "\"${properties.getProperty("BASE_URL")}\""
+        buildConfigField "String", "ACCESS_TOKEN_AUTH", "\"${properties.getProperty("ACCESS_TOKEN_AUTH")}\""
     }
 
     buildTypes {
@@ -28,6 +34,11 @@ android {
     }
     kotlinOptions {
         jvmTarget = '17'
+    }
+    android {
+        buildFeatures {
+            buildConfig = true
+        }
     }
 }
 

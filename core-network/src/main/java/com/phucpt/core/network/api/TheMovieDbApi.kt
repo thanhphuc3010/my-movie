@@ -1,5 +1,6 @@
 package com.phucpt.core.network.api
 
+import com.phucpt.core.network.dto.DiscoverMovieResponse
 import retrofit2.http.GET
 import retrofit2.http.Query
 
@@ -15,5 +16,5 @@ interface TheMovieDbApi {
         @Query("language") language: String = "en-US",
         @Query("sort_by") sortBy: String = "popularity.desc",
         @Query("page") page: Int
-    ): Unit
+    ): DiscoverMovieResponse
 }

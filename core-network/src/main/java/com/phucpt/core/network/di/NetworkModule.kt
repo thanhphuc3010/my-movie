@@ -1,5 +1,7 @@
 package com.phucpt.core.network.di
 
+import com.phucpt.core.network.BuildConfig
+import com.phucpt.core.network.api.TheMovieDbApi
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -16,12 +18,17 @@ import javax.inject.Singleton
 @Module
 @InstallIn(SingletonComponent::class)
 object NetworkModule {
+    @Provides
+    @Singleton
+    fun provideTheMovieDbApi(retrofit: Retrofit): TheMovieDbApi {
+        return retrofit.create(TheMovieDbApi::class.java)
+    }
 
     @Provides
     @Singleton
     fun provideRetrofit(okHttpClient: OkHttpClient): Retrofit {
         return Retrofit.Builder()
-            .baseUrl("")
+            .baseUrl(BuildConfig.BASE_URL)
             .client(okHttpClient)
             .addConverterFactory(GsonConverterFactory.create())
             .build()
@@ -33,10 +40,18 @@ object NetworkModule {
         httpLoggingInterceptor: HttpLoggingInterceptor
     ): OkHttpClient {
         return OkHttpClient.Builder()
+            .addInterceptor { chain ->
+                val builder = chain.request().newBuilder()
+                builder.header("accept", "application/json")
+                builder.header("Authorization", "Bearer ${BuildConfig.ACCESS_TOKEN_AUTH}")
+                chain.proceed(builder.build())
+            }
             .addInterceptor(httpLoggingInterceptor)
             .build()
     }
 
+    @Provides
+    @Singleton
     fun provideHttpLoggingInterceptor(): HttpLoggingInterceptor {
         val interceptor = HttpLoggingInterceptor()
         interceptor.level = HttpLoggingInterceptor.Level.BODY

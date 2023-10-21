@@ -5,7 +5,7 @@ import com.phucpt.mymovie.codebase.BaseAdapter
 import com.phucpt.mymovie.codebase.BaseItem
 import com.phucpt.mymovie.databinding.ItemMovieBinding
 import com.phucpt.mymovie.databinding.ItemTvSeriesBinding
-import com.phucpt.mymovie.presentation.model.Movie
+import com.phucpt.mymovie.presentation.model.MovieUiModel
 import com.phucpt.mymovie.presentation.model.TvSeries
 import javax.inject.Inject
 
@@ -26,7 +26,7 @@ class TestAdapter @Inject constructor() :
     inner class ViewHolder(binding: ItemMovieBinding) :
         BaseViewHolder<ItemMovieBinding>(binding) {
         override fun bindViews(position: Int) {
-            binding.txtTitle.text = (getItem(position) as Movie).title
+            binding.txtTitle.text = (getItem(position) as MovieUiModel).title
         }
     }
 
