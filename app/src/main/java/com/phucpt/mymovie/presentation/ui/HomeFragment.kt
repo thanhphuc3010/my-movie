@@ -1,15 +1,16 @@
 package com.phucpt.mymovie.presentation.ui
 
 import android.util.Log
-import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
-import androidx.navigation.NavOptions
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
+import com.google.gson.Gson
+import com.phucpt.core.domain.model.AcquirerDto
+import com.phucpt.core.domain.model.ProfileDto
 import com.phucpt.mymovie.R
 import com.phucpt.mymovie.codebase.BaseFragment
 import com.phucpt.mymovie.databinding.FragmentHomeBinding
@@ -27,6 +28,10 @@ import javax.inject.Inject
 class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>(
     FragmentHomeBinding::inflate
 ) {
+    companion object {
+        const val TAG = "HomeFragment"
+    }
+
     override val viewModel by viewModels<HomeViewModel>()
 
     @Inject
@@ -62,5 +67,21 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>(
 
     override fun initializeData() {
         viewModel.fetchDiscoverMovies()
+        val profileJsonStr = requireContext().assets.open("profile.json")
+            .bufferedReader()
+            .use { it.readText() }
+
+        val gson = Gson()
+        val acquirersMap = gson.fromJson(profileJsonStr, ProfileDto::class.java).acquirersMap
+        val acquirers = acquirersMap
+            .filterKeys { it.startsWith("Acquirers[") }
+            .map { entry -> gson.fromJson(gson.toJson(entry.value), AcquirerDto::class.java) }
+            .map(AcquirerDto::toModel)
+
+        acquirers.filter { it.tid.isNotBlank() && it.mid.isNotBlank() }
+            .forEach {
+//                Log.i(TAG, "acquirer: tid = ${it.tid}; mid = ${it.mid}")
+                Log.i(TAG, "acquirer: $it")
+            }
     }
 }

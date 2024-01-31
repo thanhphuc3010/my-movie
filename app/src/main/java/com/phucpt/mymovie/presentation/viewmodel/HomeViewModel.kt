@@ -6,11 +6,9 @@ import androidx.paging.PagingData
 import androidx.paging.cachedIn
 import com.phucpt.core.domain.model.Movie
 import com.phucpt.core.domain.repository.DiscoverRepository
-import com.phucpt.core.domain.repository.JsonPlaceholderRepository
 import com.phucpt.mymovie.codebase.BaseItem
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.collectLatest

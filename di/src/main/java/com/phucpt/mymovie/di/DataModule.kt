@@ -1,4 +1,4 @@
-package com.phucpt.core.data.di
+package com.phucpt.mymovie.di
 
 import com.phucpt.core.data.repository.DiscoverRepositoryImpl
 import com.phucpt.core.data.repository.JsonPlaceholderRepositoryImpl
