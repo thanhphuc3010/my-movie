@@ -7,15 +7,15 @@ package com.phucpt.mymovie.codebase.network
 suspend fun <T> ApiResult<T>.onSuccess(
     executable: suspend (T) -> Unit
 ): ApiResult<T> = apply {
-    if (this is Success<T>) {
+    if (this is ApiResult.Success<T>) {
         executable.invoke(data)
     }
 }
 
 inline fun <T> ApiResult<T>.onFailure(
-    block: Failure<T>.() -> Unit
+    block: ApiResult.Failure<T>.() -> Unit
 ): ApiResult<T> {
-    if (this is Failure<T>) {
+    if (this is ApiResult.Failure<T>) {
         block(this)
     }
     return this
@@ -24,7 +24,7 @@ inline fun <T> ApiResult<T>.onFailure(
 fun <T : Any> ApiResult<T>.onError(
     executable: (code: Int, message: String?) -> Unit
 ): ApiResult<T> = apply {
-    if (this is Error<T>) {
+    if (this is ApiResult.Error<T>) {
         executable(code, message)
     }
 }
@@ -32,12 +32,13 @@ fun <T : Any> ApiResult<T>.onError(
 fun <T : Any> ApiResult<T>.onException(
     executable: (e: Throwable) -> Unit
 ): ApiResult<T> = apply {
-    if (this is Exception<T>) {
+    if (this is ApiResult.Exception<T>) {
         executable(exception)
     }
 }
 
-fun <T> Failure<T>.message() = when (this) {
+fun <T> ApiResult.Failure<T>.message() = when (this) {
     is Error -> toString()
     is Exception -> toString()
+    else -> ""
 }

@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/shape_color_ffffff_corner_16"
+    android:gravity="center"
+    android:orientation="vertical"
+    android:padding="16dp">
+
+    <ImageView
+        android:id="@+id/imgIcon"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:contentDescription="@null"
+        android:src="@drawable/ic_success_green" />
+
+    <TextView
+        android:id="@+id/txtTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:gravity="center"
+        android:text="Title"
+        android:textAppearance="?attr/textAppearanceHeadline6" />
+
+    <TextView
+        android:id="@+id/txtContent"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:gravity="center"
+        android:letterSpacing="0.1"
+        android:text="In software engineering, behavioral design patterns are design patterns that identify common communication patterns between objects and realize these patterns"
+        android:textAppearance="?attr/textAppearanceBody1" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@drawable/shape_color_ffffff_stroke_0075db_1dp_corner_12"
+            android:gravity="center"
+            android:paddingVertical="12dp"
+            android:text="Cancel"
+            android:textAppearance="?attr/textAppearanceBody1"
+            android:textColor="#0075db"
+            android:visibility="gone" />
+
+        <View
+            android:id="@+id/spacer"
+            android:layout_width="16dp"
+            android:layout_height="0dp"
+            android:visibility="gone" />
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@drawable/shape_color_0075db_corner_12"
+            android:gravity="center"
+            android:paddingVertical="12dp"
+            android:text="OK"
+            android:textAppearance="?attr/textAppearanceBody1"
+            android:textColor="@color/white" />
+    </LinearLayout>
+
+</LinearLayout>

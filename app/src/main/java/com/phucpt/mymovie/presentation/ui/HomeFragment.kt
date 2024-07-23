@@ -50,7 +50,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>(
 //                .setPopUpTo(R.id.homeFragment, inclusive = true)
 //                .build()
             findNavController().navigate(R.id.action_homeFragment_to_movieDetailFragment, null)
-//            MyDialog.show(childFragmentManager)
+//            DialogImpl().show(childFragmentManager, null)
         }
     }
 
