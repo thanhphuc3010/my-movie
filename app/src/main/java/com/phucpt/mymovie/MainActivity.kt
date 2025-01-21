@@ -14,7 +14,7 @@ class MainActivity : BaseActivity() {
 
     override fun initializeComponents() {
         val name = "Pham Thanh Phuc"
-        val firstName = name.substring(0, 4)
+        val firstName = name.substring(0, 7)
     }
 
     override fun initializeEvents() {
