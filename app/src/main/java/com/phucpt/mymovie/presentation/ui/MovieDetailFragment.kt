@@ -9,12 +9,9 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModel
 import com.phucpt.mymovie.codebase.BaseFragment
 import com.phucpt.mymovie.databinding.FragmentMovieDetailBinding
-import io.jsonwebtoken.Jwts
-import io.jsonwebtoken.io.Encoders
 import java.security.KeyPair
 import java.security.KeyPairGenerator
 import java.security.KeyStore
-import java.util.Date
 import javax.crypto.Cipher
 
 /**
@@ -51,6 +48,11 @@ class MovieDetailFragment :
 
         binding.btnGetAlias.setOnClickListener {
             generateJwt()
+        }
+
+
+        binding.btnClear.setOnClickListener {
+            binding.signaturePad.clear()
         }
     }
 
@@ -122,21 +124,21 @@ class MovieDetailFragment :
     }
 
     private fun generateJwt() {
-        val alg = Jwts.SIG.RS512
-        val keyPair = alg.keyPair().build()
-        val jwt = Jwts.builder()
-            .issuer("omni")
-            .setAudience("aud")
-            .issuedAt(Date())
-            .signWith(keyPair.private, alg)
-            .compact()
-
-        Jwts.header()
-
-        val publicKey = Encoders.BASE64.encode(keyPair.public.encoded)
-        val privateKey = Encoders.BASE64.encode(keyPair.private.encoded)
-        Log.d(javaClass.simpleName, "Public key: $publicKey")
-        Log.d(javaClass.simpleName, "Private key: $privateKey")
-        Log.d(javaClass.simpleName, "jwt: $jwt")
+//        val alg = Jwts.SIG.RS512
+//        val keyPair = alg.keyPair().build()
+//        val jwt = Jwts.builder()
+//            .issuer("omni")
+//            .setAudience("aud")
+//            .issuedAt(Date())
+//            .signWith(keyPair.private, alg)
+//            .compact()
+//
+//        Jwts.header()
+//
+//        val publicKey = Encoders.BASE64.encode(keyPair.public.encoded)
+//        val privateKey = Encoders.BASE64.encode(keyPair.private.encoded)
+//        Log.d(javaClass.simpleName, "Public key: $publicKey")
+//        Log.d(javaClass.simpleName, "Private key: $privateKey")
+//        Log.d(javaClass.simpleName, "jwt: $jwt")
     }
 }

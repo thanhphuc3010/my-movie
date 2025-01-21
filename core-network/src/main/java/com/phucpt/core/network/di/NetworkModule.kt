@@ -1,6 +1,7 @@
 package com.phucpt.core.network.di
 
 import com.phucpt.core.network.BuildConfig
+import com.phucpt.core.network.ErrorCallAdapterFactory
 import com.phucpt.core.network.api.TheMovieDbApi
 import dagger.Module
 import dagger.Provides
@@ -31,6 +32,7 @@ object NetworkModule {
             .baseUrl(BuildConfig.BASE_URL)
             .client(okHttpClient)
             .addConverterFactory(GsonConverterFactory.create())
+            .addCallAdapterFactory(ErrorCallAdapterFactory())
             .build()
     }
 
