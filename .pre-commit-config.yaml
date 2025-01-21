@@ -1,0 +1,9 @@
+repos:
+  - repo: https://github.com/thanhphuc3010/my-movie.git
+    hooks:
+      - id: detekt
+        name: detekt check
+        description: Runs `detekt` on modified .kt files.
+        language: script
+        entry: detekt.sh
+        files: \.kt

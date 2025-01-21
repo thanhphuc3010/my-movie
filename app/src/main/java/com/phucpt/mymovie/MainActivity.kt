@@ -1,7 +1,6 @@
 package com.phucpt.mymovie
 
 import android.os.Bundle
-import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import com.phucpt.mymovie.codebase.BaseActivity
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -10,12 +9,12 @@ class MainActivity : BaseActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        installSplashScreen()
         setContentView(R.layout.activity_main)
     }
 
     override fun initializeComponents() {
-
+        val name = "Pham Thanh Phuc"
+        val firstName = name.substring(0, 4)
     }
 
     override fun initializeEvents() {
